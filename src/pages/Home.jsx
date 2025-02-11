@@ -33,7 +33,7 @@ const Home = () => {
     const featuredTech = [
         {
             title: "DPM Safety Mat",
-            image: getImageUrl('featured/dpm_safety_mat.jpg'),
+            image: getImageUrl('images/dpm_safety_mat.jpg'),
             link: "https://www.tapeswitch.com/mats/dplate.html"
         },
         {
