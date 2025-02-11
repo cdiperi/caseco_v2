@@ -1,6 +1,6 @@
 import React from 'react';
 
-const BuyNow = () => {
+const Buy = () => {
     return (
         <div className="container mx-auto p-6">
             <div className="bg-black text-white py-4 mb-8 text-center">
@@ -65,4 +65,4 @@ const BuyNow = () => {
     );
 };
 
-export default BuyNow;
+export default Buy;

@@ -4,7 +4,7 @@ import Layout from './components/layout/Layout';
 import TapeswitchQuickReferences from './pages/TapeswitchQuickReferences';
 import Links from './pages/Links';
 import About from './pages/About';
-import BuyNow from './pages/buy';
+import Buy from './pages/buy';
 import Downloads from './pages/downloads';
 import Home from './pages/Home';
 
@@ -17,7 +17,7 @@ function App() {
                     <Route path="/tapeswitch-quick-references" element={<TapeswitchQuickReferences />} />
                     <Route path="/links" element={<Links />} />
                     <Route path="/about" element={<About />} />
-                    <Route path="/buy" element={<BuyNow />} />
+                    <Route path="/buy" element={<Buy />} />
                     <Route path="/downloads" element={<Downloads />} />
                     {/* Add more routes as needed */}
                 </Routes>
