@@ -173,7 +173,19 @@ const SideNavbar = () => {
                 <Menu className="h-6 w-6 inline-block" /> Products
             </button>
 
-            <nav className={`w-64 bg-gray-100 min-h-screen p-4 text-sm transition-transform transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 md:block fixed md:relative overflow-y-auto h-[100vh] z-50`}>
+            <nav
+                className={`
+                    w-64 bg-gray-100 min-h-screen p-4 text-sm 
+                    transition-transform transform 
+                    ${isOpen ? 'translate-x-0' : '-translate-x-full'} 
+                    md:translate-x-0 md:block 
+                    fixed md:relative 
+                    h-screen md:h-auto 
+                    overflow-y-auto 
+                    z-50
+                    ${isOpen ? 'top-0 bottom-0' : ''}
+                `}
+            >
                 {Object.entries(navItems).map(([section, items]) => (
                     <div key={section} className="mb-6">
                         <h2 className="text-lg font-semibold mb-2">{section}</h2>
