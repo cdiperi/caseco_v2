@@ -29,6 +29,21 @@ const SectionTitle = ({ title }) => (
     </div>
 );
 
+const Banner = ({ image, alt, link }) => (
+    <a
+        href={link}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="block w-full h-48 bg-white rounded-lg shadow-md overflow-hidden my-6 group transition-all duration-300 hover:shadow-xl"
+    >
+        <img
+            src={image}
+            alt={alt}
+            className="w-full h-full object-contain p-2 transition-transform duration-300 group-hover:scale-105"
+        />
+    </a>
+);
+
 const Home = () => {
     const featuredTech = [
         {
@@ -39,17 +54,17 @@ const Home = () => {
         {
             title: "Programmable Safety Relays",
             image: getImageUrl('images/programmable_safety_relays.jpg'),
-            link: "#safety-relays"
+            link: "https://www.reersafety.com/us/en/products/safety-controllers/item/67-mosaic-en"
         },
         {
             title: "Thermal Imager",
             image: getImageUrl('images/thermal_imager.jpg'),
-            link: "#thermal-imager"
+            link: "http://www.micro-epsilon.com/temperature-sensors/thermoIMAGER/index.html"
         },
         {
             title: "DC Motors",
             image: getImageUrl('images/dc_motors.jpg'),
-            link: "#dc-motors"
+            link: "https://www.kontronik.com/en/products/motors/pyro/pyro-1000.html"
         }
     ];
 
@@ -57,22 +72,22 @@ const Home = () => {
         {
             title: "Non-contact Temperature Sensors",
             image: getImageUrl('images/non_contact_temperature_sensors.jpg'),
-            link: "#temp-sensors"
+            link: "http://www.micro-epsilon.com/temperature-sensors/index.html"
         },
         {
             title: "Laser Sensor Systems",
             image: getImageUrl('images/laser_sensor_systems.png'),
-            link: "#laser-sensors"
+            link: "http://www.micro-epsilon.com/displacement-position-sensors/laser-sensor/index.html"
         },
         {
             title: "Eddy Current Sensors & Measuring Systems",
             image: getImageUrl('images/eddy_current_sensors_and_measuring_systems.png'),
-            link: "#eddy-current"
+            link: "http://www.micro-epsilon.com/displacement-position-sensors/eddy-current-sensor/index.html"
         },
         {
             title: "Capacitive Displacement Measuring Systems",
             image: getImageUrl('images/capacitive_displacement_measuring_systems.png'),
-            link: "#capacitive"
+            link: "http://www.micro-epsilon.com/displacement-position-sensors/capacitive-sensor/index.html"
         }
     ];
 
@@ -80,33 +95,45 @@ const Home = () => {
         {
             title: "2D/3D Laser Scanning",
             image: getImageUrl('images/2d_3d_laser_scanning.png'),
-            link: "#laser-scanning"
+            link: "https://www.micro-epsilon.com/2D_3D/laser-scanner/scanCONTROL-3000/"
         },
         {
             title: "Robotic Palletizer Safety Solutions",
             image: getImageUrl('images/robotic_palletizer_safety_solutions.png'),
-            link: "#palletizer"
+            link: "https://www.reersafety.com/pdf/Presentazioni/Safegate_ENG.pdf"
         },
         {
             title: "Locking RFID Safety Switch",
             image: getImageUrl('images/locking_rfid_safety_switch.png'),
-            link: "#rfid-switch"
+            link: "https://www.mechancontrols.com/categories/solenoid-interlocks"
         },
         {
             title: "ATEX Environment Safety Solutions",
             image: getImageUrl('images/atex_environment_safety_solutions.png'),
-            link: "#atex"
+            link: "https://www.reersafety.com/us/en/products/atex-light-curtains/item/365-eos4-atex-en"
+        }
+    ];
+
+    const banners = [
+        {
+            image: getImageUrl('images/reer_logo.jpg'),
+            alt: "Reer Safety",
+            link: "https://www.reersafety.com/us/en/"
+        },
+        {
+            image: getImageUrl('images/kontronik_logo.gif'),
+            alt: "Kontronik",
+            link: "https://www.kontronik.com/en.html"
+        },
+        {
+            image: getImageUrl('images/tapeswitch_logo.png'),
+            alt: "Tapeswitch",
+            link: "http://www.tapeswitch.com/index.html"
         }
     ];
 
     return (
         <div className="max-w-7xl mx-auto px-4 py-8">
-            {/*<div className="mb-12 text-center">*/}
-            {/*    <h1 className="text-4xl font-bold mb-4">CASECO</h1>*/}
-            {/*    <p className="text-xl text-gray-600">Controls Automation Safety Engineering Company</p>*/}
-            {/*    <p className="text-2xl text-blue-600 font-semibold mt-2">Your future's safe!</p>*/}
-            {/*</div>*/}
-
             <div className="space-y-12">
                 <section>
                     <SectionTitle title="Featured Technology" />
@@ -115,6 +142,7 @@ const Home = () => {
                             <ProductCard key={index} {...item} />
                         ))}
                     </div>
+                    <Banner {...banners[0]} />
                 </section>
 
                 <section>
@@ -124,6 +152,7 @@ const Home = () => {
                             <ProductCard key={index} {...item} />
                         ))}
                     </div>
+                    <Banner {...banners[1]} />
                 </section>
 
                 <section>
@@ -133,6 +162,7 @@ const Home = () => {
                             <ProductCard key={index} {...item} />
                         ))}
                     </div>
+                    <Banner {...banners[2]} />
                 </section>
             </div>
         </div>

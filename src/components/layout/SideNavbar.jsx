@@ -83,8 +83,9 @@ const SideNavbar = () => {
         setHoveredItemY(rect.top);
     };
 
-    const handleLinkClick = () => {
-        if (window.innerWidth < 768) {
+    const handleLinkClick = (hasSubitems) => {
+        // Only close sidebar if it's a regular link (no subitems) on mobile
+        if (window.innerWidth < 768 && !hasSubitems) {
             setIsOpen(false);
         }
     };
@@ -92,14 +93,44 @@ const SideNavbar = () => {
     const renderSubMenu = (item) => {
         if (hoveredItem !== item.title || !item.subitems) return null;
 
+        // Calculate available space below and to the right
+        const availableSpaceBelow = window.innerHeight - submenuPosition.y;
+        const availableSpaceRight = window.innerWidth - submenuPosition.x;
+        const isMobile = window.innerWidth < 768;
+
+        // Create a temporary div to measure submenu dimensions
+        const tempDiv = document.createElement('div');
+        tempDiv.style.visibility = 'hidden';
+        tempDiv.style.position = 'absolute';
+        tempDiv.innerHTML = `<ul>${item.subitems.map(() => '<li style="height: 32px;"></li>').join('')}</ul>`;
+        document.body.appendChild(tempDiv);
+        const submenuHeight = tempDiv.offsetHeight;
+        const submenuWidth = tempDiv.offsetWidth;
+        document.body.removeChild(tempDiv);
+
+        // Determine vertical position
+        const shouldShowAbove = availableSpaceBelow < submenuHeight && submenuPosition.y > submenuHeight;
+        const topPosition = shouldShowAbove
+            ? submenuPosition.y - submenuHeight
+            : submenuPosition.y;
+
+        // Determine horizontal position
+        let leftPosition = submenuPosition.x;
+        if (isMobile || availableSpaceRight < submenuWidth) {
+            // On mobile or when there's not enough space, show submenu on the left side
+            leftPosition = Math.max(10, submenuPosition.x - submenuWidth);
+        }
+
         return createPortal(
             <ul
                 style={{
                     position: 'fixed',
-                    left: `${submenuPosition.x}px`,
-                    top: `${submenuPosition.y}px`
+                    left: `${leftPosition}px`,
+                    top: `${topPosition}px`,
+                    maxHeight: '80vh',
+                    maxWidth: '90vw'
                 }}
-                className="bg-white shadow-lg rounded-md p-2 transition-all duration-150"
+                className="bg-white shadow-lg rounded-md p-2 transition-all duration-150 overflow-y-auto"
                 onMouseEnter={() => clearTimeout(hideTimeout)}
                 onMouseLeave={() => {
                     hideTimeout = setTimeout(() => setHoveredItem(null), 300);
@@ -161,7 +192,7 @@ const SideNavbar = () => {
                                             <Link
                                                 to={item.link}
                                                 className="block flex-grow"
-                                                onClick={handleLinkClick}
+                                                onClick={() => handleLinkClick(false)}
                                             >
                                                 {item.title}
                                             </Link>
@@ -171,7 +202,7 @@ const SideNavbar = () => {
                                                 target="_blank"
                                                 rel="noopener noreferrer"
                                                 className="block flex-grow"
-                                                onClick={handleLinkClick}
+                                                onClick={() => handleLinkClick(item.subitems)}
                                             >
                                                 {item.title}
                                             </a>
