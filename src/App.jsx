@@ -4,7 +4,7 @@ import Layout from './components/layout/Layout';
 import TapeswitchQuickReferences from './pages/TapeswitchQuickReferences';
 import Links from './pages/Links';
 import About from './pages/About';
-import Buy from './pages/buy';
+import Buy from './pages/Buy';
 import Downloads from './pages/downloads';
 import Home from './pages/Home';
 

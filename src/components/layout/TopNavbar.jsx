@@ -25,14 +25,14 @@ const TopNavbar = () => {
     return (
         <nav className="bg-primary text-white shadow-lg p-4">
             <div className="flex justify-between items-center max-w-7xl mx-auto">
-                {/* Logo */}
-                <div className="flex items-center space-x-3">
+                {/* Logo with Link */}
+                <Link to="/" onClick={handleLinkClick} className="flex items-center space-x-3 hover:opacity-80 transition-opacity">
                     <Home className="h-8 w-8" />
                     <div>
                         <span className="font-bold text-xl">CASECO</span>
                         <span className="block text-sm">Controls Automation Safety Company</span>
                     </div>
-                </div>
+                </Link>
 
                 {/* Mobile Menu Button */}
                 <button className="md:hidden" onClick={() => setIsOpen(!isOpen)}>
@@ -46,7 +46,7 @@ const TopNavbar = () => {
                             key={item.path}
                             to={item.path}
                             className="px-3 py-2 rounded-md text-sm font-medium hover:bg-secondary transition-colors"
-                            onClick={handleLinkClick} // Close mobile menu on link click
+                            onClick={handleLinkClick}
                         >
                             {item.title}
                         </Link>
@@ -62,7 +62,7 @@ const TopNavbar = () => {
                             key={item.path}
                             to={item.path}
                             className="w-full text-center py-2 border-b border-gray-600"
-                            onClick={handleLinkClick} // Close mobile menu on link click
+                            onClick={handleLinkClick}
                         >
                             {item.title}
                         </Link>
