@@ -9,11 +9,11 @@ const ProductCard = ({ title, image, link }) => (
         rel="noopener noreferrer"
         className="group bg-white rounded-lg shadow-md overflow-hidden transition-all duration-300 hover:shadow-xl"
     >
-        <div className="aspect-square relative overflow-hidden bg-gray-100">
+        <div className="aspect-[1/0.85] relative overflow-hidden bg-gray-100">
             <img
                 src={image}
                 alt={title}
-                className="object-contain w-full h-full p-4 transition-transform duration-300 group-hover:scale-105"
+                className="object-contain w-full h-full p-2 transition-transform duration-300 group-hover:scale-105"
             />
         </div>
         <div className="p-4 flex items-center justify-between bg-white">
@@ -38,17 +38,17 @@ const Home = () => {
         },
         {
             title: "Programmable Safety Relays",
-            image: "/api/placeholder/400/400",
+            image: getImageUrl('images/programmable_safety_relays.jpg'),
             link: "#safety-relays"
         },
         {
             title: "Thermal Imager",
-            image: "/api/placeholder/400/400",
+            image: getImageUrl('images/thermal_imager.jpg'),
             link: "#thermal-imager"
         },
         {
             title: "DC Motors",
-            image: "/api/placeholder/400/400",
+            image: getImageUrl('images/dc_motors.jpg'),
             link: "#dc-motors"
         }
     ];
@@ -56,22 +56,22 @@ const Home = () => {
     const precisionSensors = [
         {
             title: "Non-contact Temperature Sensors",
-            image: "/api/placeholder/400/400",
+            image: getImageUrl('images/non_contact_temperature_sensors.jpg'),
             link: "#temp-sensors"
         },
         {
             title: "Laser Sensor Systems",
-            image: "/api/placeholder/400/400",
+            image: getImageUrl('images/laser_sensor_systems.png'),
             link: "#laser-sensors"
         },
         {
             title: "Eddy Current Sensors & Measuring Systems",
-            image: "/api/placeholder/400/400",
+            image: getImageUrl('images/eddy_current_sensors_and_measuring_systems.png'),
             link: "#eddy-current"
         },
         {
             title: "Capacitive Displacement Measuring Systems",
-            image: "/api/placeholder/400/400",
+            image: getImageUrl('images/capacitive_displacement_measuring_systems.png'),
             link: "#capacitive"
         }
     ];
@@ -79,22 +79,22 @@ const Home = () => {
     const innovativeOptions = [
         {
             title: "2D/3D Laser Scanning",
-            image: "/api/placeholder/400/400",
+            image: getImageUrl('images/2d_3d_laser_scanning.png'),
             link: "#laser-scanning"
         },
         {
             title: "Robotic Palletizer Safety Solutions",
-            image: "/api/placeholder/400/400",
+            image: getImageUrl('images/robotic_palletizer_safety_solutions.png'),
             link: "#palletizer"
         },
         {
             title: "Locking RFID Safety Switch",
-            image: "/api/placeholder/400/400",
+            image: getImageUrl('images/locking_rfid_safety_switch.png'),
             link: "#rfid-switch"
         },
         {
             title: "ATEX Environment Safety Solutions",
-            image: "/api/placeholder/400/400",
+            image: getImageUrl('images/atex_environment_safety_solutions.png'),
             link: "#atex"
         }
     ];
@@ -134,16 +134,6 @@ const Home = () => {
                         ))}
                     </div>
                 </section>
-
-                <footer className="mt-12 p-6 bg-gray-100 rounded-lg">
-                    <div className="text-center text-gray-600">
-                        <p className="font-semibold mb-2">A full spectrum of sensing and signaling products for protection, detection, and safety</p>
-                        <p>100 Example Boulevard</p>
-                        <p>Industrial City, ST 12345</p>
-                        <p>Phone: (555) 555-0123</p>
-                        <p>Email: info@caseco.com</p>
-                    </div>
-                </footer>
             </div>
         </div>
     );
