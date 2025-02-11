@@ -175,15 +175,16 @@ const SideNavbar = () => {
 
             <nav
                 className={`
-                    w-64 bg-gray-100 min-h-screen p-4 text-sm 
+                    w-64 bg-gray-100 p-4 text-sm 
                     transition-transform transform 
                     ${isOpen ? 'translate-x-0' : '-translate-x-full'} 
                     md:translate-x-0 md:block 
                     fixed md:relative 
-                    h-screen md:h-auto 
+                    inset-0 md:inset-auto
+                    md:h-auto 
                     overflow-y-auto 
                     z-50
-                    ${isOpen ? 'top-0 bottom-0' : ''}
+                    pb-20 md:pb-4
                 `}
             >
                 {Object.entries(navItems).map(([section, items]) => (
