@@ -5,7 +5,7 @@ import TapeswitchQuickReferences from './pages/TapeswitchQuickReferences';
 import Links from './pages/Links';
 import About from './pages/About';
 import Buy from './pages/Buy';
-import Downloads from './pages/downloads';
+import Downloads from './pages/Downloads';
 import Home from './pages/Home';
 
 function App() {
