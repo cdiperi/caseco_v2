@@ -1,12 +1,14 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { ChevronDown, Menu } from 'lucide-react';
+import { createPortal } from 'react-dom';
 
 const SideNavbar = () => {
     const [hoveredItem, setHoveredItem] = useState(null);
     const [isOpen, setIsOpen] = useState(false);
     const [hoveredItemY, setHoveredItemY] = useState(0);
-    let hideTimeout; // To delay hiding submenus
+    const [submenuPosition, setSubmenuPosition] = useState({ x: 0, y: 0 });
+    let hideTimeout;
 
     const navItems = {
         Applications: [
@@ -72,19 +74,67 @@ const SideNavbar = () => {
 
     const handleMouseEnter = (event, title) => {
         clearTimeout(hideTimeout);
+        const rect = event.currentTarget.getBoundingClientRect();
+        setSubmenuPosition({
+            x: rect.right,
+            y: rect.top
+        });
         setHoveredItem(title);
-        setHoveredItemY(event.target.getBoundingClientRect().top); // Get Y position
+        setHoveredItemY(rect.top);
     };
 
     const handleLinkClick = () => {
         if (window.innerWidth < 768) {
-            setIsOpen(false); // Close the sidebar on mobile after link click
+            setIsOpen(false);
         }
+    };
+
+    const renderSubMenu = (item) => {
+        if (hoveredItem !== item.title || !item.subitems) return null;
+
+        return createPortal(
+            <ul
+                style={{
+                    position: 'fixed',
+                    left: `${submenuPosition.x}px`,
+                    top: `${submenuPosition.y}px`
+                }}
+                className="bg-white shadow-lg rounded-md p-2 transition-all duration-150"
+                onMouseEnter={() => clearTimeout(hideTimeout)}
+                onMouseLeave={() => {
+                    hideTimeout = setTimeout(() => setHoveredItem(null), 300);
+                }}
+            >
+                {item.subitems.map((subitem) => (
+                    <li key={subitem.title} className="py-1 px-4 hover:bg-gray-100 cursor-pointer whitespace-nowrap">
+                        {subitem.isInternal ? (
+                            <Link
+                                to={subitem.link}
+                                className="block"
+                                onClick={handleLinkClick}
+                            >
+                                {subitem.title}
+                            </Link>
+                        ) : (
+                            <a
+                                href={subitem.link}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="block"
+                                onClick={handleLinkClick}
+                            >
+                                {subitem.title}
+                            </a>
+                        )}
+                    </li>
+                ))}
+            </ul>,
+            document.body
+        );
     };
 
     return (
         <>
-            {/* Mobile Menu Button */}
             <button
                 className="md:hidden p-3 bg-gray-200 w-full text-left"
                 onClick={() => setIsOpen(!isOpen)}
@@ -92,7 +142,6 @@ const SideNavbar = () => {
                 <Menu className="h-6 w-6 inline-block" /> Products
             </button>
 
-            {/* Sidebar */}
             <nav className={`w-64 bg-gray-100 min-h-screen p-4 text-sm transition-transform transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 md:block fixed md:relative overflow-y-auto h-[100vh] z-50`}>
                 {Object.entries(navItems).map(([section, items]) => (
                     <div key={section} className="mb-6">
@@ -111,8 +160,8 @@ const SideNavbar = () => {
                                         {item.isInternal ? (
                                             <Link
                                                 to={item.link}
-                                                className="block"
-                                                onClick={handleLinkClick} // Collapse sidebar on click
+                                                className="block flex-grow"
+                                                onClick={handleLinkClick}
                                             >
                                                 {item.title}
                                             </Link>
@@ -121,49 +170,15 @@ const SideNavbar = () => {
                                                 href={item.link}
                                                 target="_blank"
                                                 rel="noopener noreferrer"
-                                                className="block"
-                                                onClick={handleLinkClick} // Collapse sidebar on click
+                                                className="block flex-grow"
+                                                onClick={handleLinkClick}
                                             >
                                                 {item.title}
                                             </a>
                                         )}
                                         {item.subitems && <ChevronDown className="ml-2 h-4 w-4" />}
                                     </div>
-
-                                    {/* Subitems */}
-                                    {hoveredItem === item.title && item.subitems && (
-                                        <ul
-                                            className={`absolute left-full ml-1 bg-white shadow-lg rounded-md p-2 transition-all duration-150 ${
-                                                window.innerHeight - hoveredItemY < 200 ? 'bottom-0' : 'top-0'
-                                            }`}
-                                            onMouseEnter={() => clearTimeout(hideTimeout)}
-                                            onMouseLeave={() => hideTimeout = setTimeout(() => setHoveredItem(null), 300)}
-                                        >
-                                            {item.subitems.map((subitem) => (
-                                                <li key={subitem.title} className="py-1 px-4 hover:bg-gray-100 cursor-pointer whitespace-nowrap">
-                                                    {subitem.isInternal ? (
-                                                        <Link
-                                                            to={subitem.link}
-                                                            className="block"
-                                                            onClick={handleLinkClick} // Collapse sidebar on click
-                                                        >
-                                                            {subitem.title}
-                                                        </Link>
-                                                    ) : (
-                                                        <a
-                                                            href={subitem.link}
-                                                            target="_blank"
-                                                            rel="noopener noreferrer"
-                                                            className="block"
-                                                            onClick={handleLinkClick} // Collapse sidebar on click
-                                                        >
-                                                            {subitem.title}
-                                                        </a>
-                                                    )}
-                                                </li>
-                                            ))}
-                                        </ul>
-                                    )}
+                                    {renderSubMenu(item)}
                                 </li>
                             ))}
                         </ul>
