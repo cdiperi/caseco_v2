@@ -6,13 +6,13 @@ const TopNavbar = () => {
     const [isOpen, setIsOpen] = useState(false);
     const navItems = [
         { title: 'Home', path: '/' },
-        { title: 'Blog', path: '/blog' },
+        { title: 'Blog', path: 'https://casecoinc.wordpress.com/' },
         { title: 'News', path: '/news' },
         { title: 'Events', path: '/events' },
         { title: 'Links', path: '/links' },
         { title: 'Downloads', path: '/downloads' },
         { title: 'About Us', path: '/about' },
-        { title: 'Contact Us', path: '/contact' },
+        { title: 'Contact Us', path: 'mailto:timdiperi@caseco-inc.com' },
         { title: 'Buy Now', path: '/buy' },
     ];
 
